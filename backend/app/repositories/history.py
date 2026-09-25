@@ -72,10 +72,10 @@ def get_run(run_id: int):
         ).fetchone()
         if not row:
             return None
-        from app.services.grid_open import open_as_area_method
-
         d = dict(row)
-        d["result"] = open_as_area_method(json.loads(d.pop("result_json")))
+        # 详情与列表、写入回包同一套钉选：原样返回写入时快照，
+        # 不按现行默认或面积法重算 base_count/order_count。
+        d["result"] = json.loads(d.pop("result_json"))
         return d
     finally:
         conn.close()
