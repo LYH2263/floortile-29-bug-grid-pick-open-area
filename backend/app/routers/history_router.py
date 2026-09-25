@@ -15,5 +15,5 @@ def get_run(run_id: int):
     row = history_repo.get_run(run_id)
     if not row:
         raise HTTPException(404, "run not found")
-    # Detail always goes through repository open shaping.
+    # 详情返回写入时钉选的快照，与列表摘要及保存回包同一口径。
     return row
